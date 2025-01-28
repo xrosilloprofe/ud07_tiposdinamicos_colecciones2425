@@ -1,24 +1,24 @@
-public class ListaEnteros {
+package tad;
 
-    private Nodo cabeza, cola;
+import java.lang.reflect.Array;
+
+public class Lista<T> {
+    Nodo<T> cabeza, cola;
     private int tamanyo;
 
-    public ListaEnteros(){
+    public Lista(){
         cabeza=null;
         cola=null;
         tamanyo=0;
     }
-
     public int size(){
         return tamanyo;
     }
-
     public boolean isEmpty(){
         return tamanyo==0;
     }
-
-    public void addCabeza(int elemento){
-        Nodo nodo =new Nodo(elemento);
+    public void addCabeza(T elemento){
+        Nodo<T> nodo = new Nodo<>(elemento);
         if (isEmpty()){
             cola=nodo;
         } else {
@@ -27,8 +27,8 @@ public class ListaEnteros {
         cabeza=nodo;
         tamanyo++;
     }
-    public void addCola(int elemento){
-        Nodo nodo = new Nodo(elemento);
+    public void addCola(T elemento){
+        Nodo<T> nodo = new Nodo<>(elemento);
         if (isEmpty()){
             cabeza=nodo;
         } else {
@@ -37,17 +37,17 @@ public class ListaEnteros {
         cola=nodo;
         tamanyo++;
     }
-    public Integer get(int index){
+    public T get(int index){
         if(index<0||index>=tamanyo)
             return null;
-        Nodo aux = cabeza;
+        Nodo<T> aux = cabeza;
         for (int i = 0; i < index; i++) {
             aux=aux.getSiguiente();
         }
         return aux.getElemento();
     }
-    public int search(int elemento){
-        Nodo aux = cabeza;
+    public int search(T elemento){
+        Nodo<T> aux = cabeza;
         for (int i = 0; i < tamanyo; i++) {
             if (elemento == aux.getElemento()){
                 return i;
@@ -56,19 +56,19 @@ public class ListaEnteros {
         }
         return -1;
     }
-    public boolean contains(int elemento){
-        Nodo nodo=cabeza;
+    public boolean contains(T elemento){
+        Nodo<T> nodo=cabeza;
         for (int i = 0; i < tamanyo; i++) {
-            if (nodo.getElemento()==elemento){
+            if (nodo.getElemento().equals(elemento)){
                 return true;
             }
             nodo=nodo.getSiguiente();
         }
         return false;
     }
-    public int[] toArray(){
-        int[] array = new int[tamanyo];
-        Nodo nodo = cabeza;
+    public T[] toArray(Class clazz){
+        T[] array = (T[]) Array.newInstance(clazz,tamanyo);
+        Nodo<T> nodo = cabeza;
         for (int i = 0; i <tamanyo ; i++) {
             array[i] = nodo.getElemento();
             nodo = nodo.getSiguiente();
@@ -80,14 +80,14 @@ public class ListaEnteros {
         cola=null;
         tamanyo=0;
     }
-    public void addAll(ListaEnteros lista){
+    public void addAll(Lista<T> lista){
         for (int t = 0; t < lista.size(); t++) {
             this.addCola(lista.get(t));
         }
     }
-    public Integer remove(int index){
-        Nodo nodo=cabeza;
-        Integer elemento=null;
+    public T remove(int index){
+        Nodo<T> nodo=cabeza;
+        T elemento=null;
         if(get(index)==null)
             return elemento;
 
@@ -109,7 +109,7 @@ public class ListaEnteros {
 
     @Override
     public String toString(){
-        Nodo nodo = cabeza;
+        Nodo<T> nodo = cabeza;
         String resultado = "";
         for (int i = 0; i < tamanyo; i++) {
             resultado += nodo + " -> ";
@@ -121,27 +121,26 @@ public class ListaEnteros {
         return resultado;
     }
 
-    private class Nodo{
-        private int elemento;
+    private class Nodo<T>{
+        private T elemento;
         private Nodo siguiente;
 
-        public Nodo(int elemento){
+        public Nodo(T elemento){
             this.elemento = elemento;
         }
 
-        public int getElemento() {
+        public T getElemento() {
             return elemento;
         }
-        public Nodo getSiguiente() {
+        public Nodo<T> getSiguiente() {
             return siguiente;
         }
-        public void setSiguiente(Nodo siguiente) { this.siguiente = siguiente; }
+        public void setSiguiente(Nodo<T> siguiente) { this.siguiente = siguiente; }
 
         @Override
         public String toString(){
-            return Integer.toString(elemento);
+            return elemento.toString();
         }
-
     }
 
 }
