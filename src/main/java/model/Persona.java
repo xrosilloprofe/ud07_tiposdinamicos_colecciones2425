@@ -36,6 +36,12 @@ public class Persona implements Comparable<Persona>{
                 && persona.getApellido().equals(apellido);
     }
 
+    //NECESARIO para usar HashMaps, HashSet
+    @Override
+    public int hashCode(){
+        return (apellido.hashCode()+nombre.hashCode());
+    }
+
     @Override
     public int compareTo(Persona persona){
         if (this.getApellido().equals(persona.getApellido())){
@@ -43,5 +49,7 @@ public class Persona implements Comparable<Persona>{
         }
         return apellido.compareTo(persona.getApellido());
     }
+
+
 
 }
