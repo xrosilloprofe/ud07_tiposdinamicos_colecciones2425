@@ -1,8 +1,22 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class Persona implements Comparable<Persona>{
+    public static final Comparator<Persona> SORT_BY_AGE =
+            new Comparator<Persona>(){
+        @Override
+        public int compare(Persona persona1, Persona persona2) {
+            return persona1.fechaNac.compareTo(persona2.fechaNac);
+        }
+    };
+    //con lambdas
+//    public static final Comparator<Persona> SORT_BY_AGE1 =
+//            (Persona o1, Persona o2) -> o1.fechaNac.compareTo(o2.fechaNac);
+//    public static final Comparator<Persona> SORT_BY_AGE2 =
+//            Comparator.comparing((Persona o) -> o.fechaNac);
+
     private String nombre;
     private String apellido;
     private LocalDate fechaNac;
@@ -12,10 +26,10 @@ public class Persona implements Comparable<Persona>{
         this.apellido=apellido;
         this.fechaNac=fechaNac;
     }
+
     public String getNombre() {
         return nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
@@ -49,7 +63,5 @@ public class Persona implements Comparable<Persona>{
         }
         return apellido.compareTo(persona.getApellido());
     }
-
-
 
 }
