@@ -27,6 +27,5 @@ public class EjmploComparator {
         //ordenador por un comparator
         personas.sort(Persona.SORT_BY_AGE);
         System.out.println(personas);
-
     }
 }
