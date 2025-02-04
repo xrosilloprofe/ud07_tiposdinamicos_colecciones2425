@@ -1,6 +1,7 @@
 package ejercicio1;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 
 public class Ejercicio1 {
@@ -68,13 +69,54 @@ public class Ejercicio1 {
         System.out.println();
 
         //Países por orden alfabético
+        Set<Pais> paisSet = new TreeSet<>(empleados.values());
+        for(Pais pais: paisSet){
+            System.out.print(" --> " + pais);
+        }
+        System.out.println();
 
         //Trabajadores por edad
+        List<Empleado> listaEmpleado = new ArrayList<>(empleados.keySet());
+//        Collections.sort(listaEmpleado); <-- orden natural !!
+        listaEmpleado.sort(Empleado.BY_AGE);
+        for(Empleado empleado:listaEmpleado){
+            System.out.print(" --> " + empleado);
+        }
+        System.out.println();
 
         //Informe con los países por orden alfabético y sus trabajadores por edad (único informe)
+        Map<Pais,List<Empleado>> paisesEmpleados = new TreeMap<>();
+        //para cada país <-- evito duplicados y recorro paisSet
+        for(Pais pais:paisSet){
+            List<Empleado> empList = new ArrayList<>();
+            //recorrer los empleados y comprobar si son del país que estoy recorriendo
+            for(Empleado empleado:empleados.keySet()){
+                if(empleados.get(empleado).equals(pais))
+                    empList.add(empleado);
+            }
+            empList.sort(Empleado.BY_AGE);
+            paisesEmpleados.put(pais,empList);
+        }
+
+        for(Pais pais:paisesEmpleados.keySet()){
+//            System.out.println("Pais: " + pais + " empleados: " + paisesEmpleados.get(pais));
+            System.out.println("Pais: " + pais);
+            for (Empleado empleado:paisesEmpleados.get(pais)){
+                System.out.println("\t Empleado: " + empleado);
+            }
+        }
+
 
         //Recorrer todos los trabajadores y mostrar solo aquellos con edad superior a 50 años
         // utilizando un iterador. <-- Period.between(empleado.getFechaNac(),LocalDate.now()).getYears();
+        Iterator<Empleado> iterador = empleados.keySet().iterator();
+        System.out.println("Empleados más sabios");
+        while (iterador.hasNext()){
+            Empleado empleado = iterador.next();
+            if(Period.between(empleado.getFechaNac(),LocalDate.now()).getYears()>=50)
+                System.out.println("Empleado: " + empleado);
+        }
+
 
     }
 }

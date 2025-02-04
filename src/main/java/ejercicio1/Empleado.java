@@ -1,8 +1,16 @@
 package ejercicio1;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class Empleado implements Comparable<Empleado>{
+    public static final Comparator<Empleado> BY_AGE =
+            new Comparator<Empleado>() {
+                @Override
+                public int compare(Empleado o1, Empleado o2) {
+                    return o1.getFechaNac().compareTo(o2.getFechaNac());
+                }
+            };
     private String DNI;
     private String nombreCompleto;
     private LocalDate fechaNac;
