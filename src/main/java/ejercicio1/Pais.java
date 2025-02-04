@@ -1,6 +1,15 @@
 package ejercicio1;
 
+import java.util.Comparator;
+
 public class Pais implements Comparable<Pais>{
+    public static final Comparator<Pais> BY_POP = new Comparator<Pais>() {
+        @Override
+        public int compare(Pais o1, Pais o2) {
+            return o2.getPoblacion()-o1.getPoblacion();
+        }
+    };
+
     private String nombre;
     private int poblacion;
 

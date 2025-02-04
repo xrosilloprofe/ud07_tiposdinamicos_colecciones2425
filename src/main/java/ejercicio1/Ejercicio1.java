@@ -117,6 +117,10 @@ public class Ejercicio1 {
                 System.out.println("Empleado: " + empleado);
         }
 
+        //Mostrar los paises ordenados por población
+        List<Pais> ordenadosPoblacion = new ArrayList<>(paisSet);
+        ordenadosPoblacion.sort(Pais.BY_POP);
+        System.out.println(ordenadosPoblacion);
 
     }
 }
